@@ -3,7 +3,8 @@ package com.dzmitry.hibernate_tutorial.entity;
 import javax.persistence.*;
 import java.util.Date;
 
-@Entity(name = "student")
+@Entity
+@Table(name = "student")
 public class Student {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
