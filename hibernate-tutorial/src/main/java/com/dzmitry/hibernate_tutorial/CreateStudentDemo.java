@@ -5,6 +5,10 @@ import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 public class CreateStudentDemo {
 
     public static void main(String[] args) {
@@ -17,14 +21,18 @@ public class CreateStudentDemo {
         try{
             session = factory.getCurrentSession();
             System.out.println("Creating a new student object...");
-            Student student = new Student("Dzmitry", "Liashuk", "test@gmail.com");
+            String dateOfBirthStr = "01/01/2001";
+            Date theDateOfBirth = new SimpleDateFormat("dd/MM/yyyy").parse(dateOfBirthStr);
+            Student student = new Student("Dzmitry", "Liashuk", "test@gmail.com", theDateOfBirth);
 
             session.beginTransaction();
             System.out.println("Saving the student...");
             session.save(student);
             session.getTransaction().commit();
             System.out.println("Done!");
-        }finally {
+        } catch (ParseException e) {
+            e.printStackTrace();
+        } finally {
         session.close();
         factory.close();
     }

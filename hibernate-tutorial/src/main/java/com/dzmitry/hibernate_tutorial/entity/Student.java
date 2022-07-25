@@ -1,6 +1,7 @@
 package com.dzmitry.hibernate_tutorial.entity;
 
 import javax.persistence.*;
+import java.util.Date;
 
 @Entity(name = "student")
 public class Student {
@@ -14,6 +15,9 @@ public class Student {
     private String lastName;
     @Column(name = "email")
     private String email;
+    @Column(name = "date_of_birth")
+    @Temporal(TemporalType.DATE)
+    private Date dateOfBirth;
 
     public Student() {
     }
@@ -22,6 +26,13 @@ public class Student {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
+    }
+
+    public Student(String firstName, String lastName, String email, Date dateOfBirth) {
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.dateOfBirth = dateOfBirth;
     }
 
     public Long getId() {
@@ -56,6 +67,14 @@ public class Student {
         this.email = email;
     }
 
+    public Date getDateOfBirth() {
+        return dateOfBirth;
+    }
+
+    public void setDateOfBirth(Date dateOfBirth) {
+        this.dateOfBirth = dateOfBirth;
+    }
+
     @Override
     public String toString() {
         return "Student{" +
@@ -63,6 +82,7 @@ public class Student {
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", email='" + email + '\'' +
+                ", dateOfBirth='" + dateOfBirth + '\'' +
                 '}';
     }
 }
