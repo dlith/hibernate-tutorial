@@ -20,7 +20,7 @@ public class DeleteInstructorDetailDemo {
             session = factory.getCurrentSession();
             session.beginTransaction();
 
-            long id = 3;
+            long id = 4;
 
             InstructorDetail instructorDetail = session.get(InstructorDetail.class, id);
 
@@ -29,6 +29,8 @@ public class DeleteInstructorDetailDemo {
 
             // delete instructor detail
             System.out.println("deleting instructor detail: " + instructorDetail);
+            //break bi-directional link
+            instructorDetail.getInstructor().setInstructorDetail(null);
             session.delete(instructorDetail);
 
             session.getTransaction().commit();
