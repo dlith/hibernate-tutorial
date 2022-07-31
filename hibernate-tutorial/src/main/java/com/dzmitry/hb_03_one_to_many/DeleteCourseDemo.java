@@ -1,10 +1,13 @@
-package com.dzmitry.hb_03_one_to_many.entity;
+package com.dzmitry.hb_03_one_to_many;
 
+import com.dzmitry.hb_03_one_to_many.entity.Course;
+import com.dzmitry.hb_03_one_to_many.entity.Instructor;
+import com.dzmitry.hb_03_one_to_many.entity.InstructorDetail;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 
-public class CreateCoursesDemo {
+public class DeleteCourseDemo {
 
     public static void main(String[] args) {
         SessionFactory factory = new Configuration()
@@ -20,16 +23,10 @@ public class CreateCoursesDemo {
             session = factory.getCurrentSession();
             session.beginTransaction();
 
-            long id = 1;
-            Instructor instructor = session.get(Instructor.class, id);
-            Course course1 = new Course("Air Guitar");
-            Course course2 = new Course("The Pinball");
-
-            instructor.addCourse(course1);
-            instructor.addCourse(course2);
-
-            session.save(course1);
-            session.save(course2);
+            long id = 10;
+            Course course = session.get(Course.class, id);
+            System.out.println("Deleting course: " + course);
+            session.delete(course);
 
             session.getTransaction().commit();
             System.out.println("Done!");
