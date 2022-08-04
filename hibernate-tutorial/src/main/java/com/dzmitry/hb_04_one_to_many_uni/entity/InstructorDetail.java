@@ -1,4 +1,4 @@
-package com.dzmitry.hb_031_eager_vs_lazy_demo.entity;
+package com.dzmitry.hb_04_one_to_many_uni.entity;
 
 import lombok.Getter;
 import lombok.Setter;

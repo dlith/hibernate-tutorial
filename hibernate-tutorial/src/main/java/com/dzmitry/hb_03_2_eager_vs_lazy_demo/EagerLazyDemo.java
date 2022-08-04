@@ -1,13 +1,13 @@
-package com.dzmitry.hb_03_one_to_many;
+package com.dzmitry.hb_03_2_eager_vs_lazy_demo;
 
-import com.dzmitry.hb_03_one_to_many.entity.Course;
-import com.dzmitry.hb_03_one_to_many.entity.Instructor;
-import com.dzmitry.hb_03_one_to_many.entity.InstructorDetail;
+import com.dzmitry.hb_03_1_one_to_many.entity.Course;
+import com.dzmitry.hb_03_1_one_to_many.entity.Instructor;
+import com.dzmitry.hb_03_1_one_to_many.entity.InstructorDetail;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 
-public class CreateInstructorDemo {
+public class EagerLazyDemo {
 
     public static void main(String[] args) {
         SessionFactory factory = new Configuration()
@@ -20,14 +20,14 @@ public class CreateInstructorDemo {
         Session session = null;
         try{
 
-            Instructor instructor = new Instructor("Ivan", "Cholik", "test@foo.com");
-            InstructorDetail instructorDetail = new InstructorDetail("youtube", "drums");
-            instructor.setInstructorDetail(instructorDetail);
-
             session = factory.getCurrentSession();
             session.beginTransaction();
-            System.out.println("Saving instructor: " + instructor);
-            session.save(instructor);
+
+            long id = 1;
+            Instructor instructor = session.get(Instructor.class, id);
+
+            System.out.println("Instructor:" + instructor);
+            System.out.println("Courses: " + instructor.getCourses());
 
             session.getTransaction().commit();
             System.out.println("Done!");

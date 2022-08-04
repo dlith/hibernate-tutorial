@@ -1,20 +1,22 @@
-package com.dzmitry.hb_031_eager_vs_lazy_demo;
+package com.dzmitry.hb_04_one_to_many_uni;
 
-import com.dzmitry.hb_03_one_to_many.entity.Course;
-import com.dzmitry.hb_03_one_to_many.entity.Instructor;
-import com.dzmitry.hb_03_one_to_many.entity.InstructorDetail;
+import com.dzmitry.hb_04_one_to_many_uni.entity.Course;
+import com.dzmitry.hb_04_one_to_many_uni.entity.Instructor;
+import com.dzmitry.hb_04_one_to_many_uni.entity.InstructorDetail;
+import com.dzmitry.hb_04_one_to_many_uni.entity.Review;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 
-public class EagerLazyDemo {
+public class CreateReviewsDemo {
 
     public static void main(String[] args) {
         SessionFactory factory = new Configuration()
-                .configure("hb-03-hibernate.cfg.xml")
+                .configure("hb-04-hibernate.cfg.xml")
                 .addAnnotatedClass(Instructor.class)
                 .addAnnotatedClass(InstructorDetail.class)
                 .addAnnotatedClass(Course.class)
+                .addAnnotatedClass(Review.class)
                 .buildSessionFactory();
 
         Session session = null;
@@ -23,11 +25,12 @@ public class EagerLazyDemo {
             session = factory.getCurrentSession();
             session.beginTransaction();
 
-            long id = 1;
-            Instructor instructor = session.get(Instructor.class, id);
-
-            System.out.println("Instructor:" + instructor);
-            System.out.println("Courses: " + instructor.getCourses());
+            Course course = new Course("Pacman");
+            course.addReview(new Review("Great"));
+            course.addReview(new Review("Cool"));
+            course.addReview(new Review("OK"));
+            System.out.println("Saving course");
+            session.save(course);
 
             session.getTransaction().commit();
             System.out.println("Done!");

@@ -1,8 +1,8 @@
-package com.dzmitry.hb_031_eager_vs_lazy_demo;
+package com.dzmitry.hb_03_2_eager_vs_lazy_demo;
 
-import com.dzmitry.hb_03_one_to_many.entity.Course;
-import com.dzmitry.hb_03_one_to_many.entity.Instructor;
-import com.dzmitry.hb_03_one_to_many.entity.InstructorDetail;
+import com.dzmitry.hb_03_1_one_to_many.entity.Course;
+import com.dzmitry.hb_03_1_one_to_many.entity.Instructor;
+import com.dzmitry.hb_03_1_one_to_many.entity.InstructorDetail;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
