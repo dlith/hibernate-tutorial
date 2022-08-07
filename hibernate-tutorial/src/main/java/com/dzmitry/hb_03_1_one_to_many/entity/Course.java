@@ -15,12 +15,12 @@ public class Course {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
-    public long id;
+    private long id;
     @Column(name = "title")
-    public String title;
+    private String title;
     @ManyToOne(cascade = {CascadeType.DETACH, CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH})
     @JoinColumn(name = "instructor_id")
-    public Instructor instructor;
+    private Instructor instructor;
 
     public Course(String title) {
         this.title = title;

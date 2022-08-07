@@ -1,4 +1,4 @@
-package com.dzmitry.hb_04_one_to_many_uni.entity;
+package com.dzmitry.hb_05_many_to_many.entity;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;

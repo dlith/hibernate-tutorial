@@ -1,4 +1,4 @@
-package com.dzmitry.hb_04_one_to_many_uni.entity;
+package com.dzmitry.hb_05_many_to_many.entity;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -28,6 +28,14 @@ public class Course {
     @JoinColumn(name = "course_id")
     private List<Review> reviews;
 
+    @ManyToMany(fetch = FetchType.LAZY, cascade = {CascadeType.DETACH, CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH})
+    @JoinTable(
+        name = "course_student",
+        joinColumns = @JoinColumn(name = "course_id"),
+        inverseJoinColumns = @JoinColumn(name = "student_id")
+    )
+    public List<Student> students;
+
     public Course(String title) {
         this.title = title;
     }
@@ -37,6 +45,13 @@ public class Course {
             reviews = new ArrayList<>();
         }
         reviews.add(review);
+    }
+
+    public void addStudent(Student student){
+        if (students == null) {
+            students = new ArrayList<>();
+        }
+        students.add(student);
     }
 
     @Override
