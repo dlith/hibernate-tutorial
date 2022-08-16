@@ -6,9 +6,7 @@ import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-import javax.transaction.Transactional;
 import java.util.List;
-import java.util.concurrent.CyclicBarrier;
 
 @Repository
 public class CustomerDAOImpl implements CustomerDAO {
@@ -36,5 +34,13 @@ public class CustomerDAOImpl implements CustomerDAO {
     public Customer getCustomer(long id) {
         Session session = sessionFactory.getCurrentSession();
         return session.get(Customer.class, id);
+    }
+
+    @Override
+    public void deleteCustomer(long id) {
+        Session session = sessionFactory.getCurrentSession();
+        Query<Customer> query = session.createQuery("delete from Customer where id = :customerId");
+        query.setParameter("customerId", id);
+        query.executeUpdate();
     }
 }
