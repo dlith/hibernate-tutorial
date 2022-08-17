@@ -6,7 +6,7 @@ import java.util.List;
 
 public interface CustomerDAO {
 
-    public List<Customer> getCustomers();
+    public List<Customer> getCustomers(int sortColumn);
     public void saveCustomer(Customer customer);
     public Customer getCustomer(long id);
     public void deleteCustomer(long id);

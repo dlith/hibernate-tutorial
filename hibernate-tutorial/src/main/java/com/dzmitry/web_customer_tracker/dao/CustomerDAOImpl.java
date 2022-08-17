@@ -1,6 +1,7 @@
 package com.dzmitry.web_customer_tracker.dao;
 
 import com.dzmitry.web_customer_tracker.entity.Customer;
+import com.dzmitry.web_customer_tracker.util.SortUtils;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
@@ -15,10 +16,25 @@ public class CustomerDAOImpl implements CustomerDAO {
     private SessionFactory sessionFactory;
 
     @Override
-    public List<Customer> getCustomers() {
+    public List<Customer> getCustomers(int sortColumn) {
 
         Session session = sessionFactory.getCurrentSession();
-        Query<Customer> query= session.createQuery("from Customer order by lastName", Customer.class);
+
+        String sortField;
+        switch (sortColumn) {
+            case SortUtils.FIRST_NAME:
+                sortField = "firstName";
+                break;
+            case SortUtils.LAST_NAME:
+                sortField = "lastName";
+                break;
+            case SortUtils.EMAIL:
+                sortField = "email";
+                break;
+            default:
+                sortField = "lastName";
+        }
+        Query<Customer> query= session.createQuery("from Customer order by " + sortField, Customer.class);
         List<Customer> customers = query.getResultList();
 
         return customers;
@@ -52,7 +68,7 @@ public class CustomerDAOImpl implements CustomerDAO {
             query.setParameter("name", "%" + name.toLowerCase() + "%");
             return query.getResultList();
         }else {
-            return getCustomers();
+            return getCustomers(SortUtils.LAST_NAME);
         }
 
     }

@@ -1,3 +1,4 @@
+<%@ page import="com.dzmitry.web_customer_tracker.util.SortUtils" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <!DOCTYPE html>
@@ -32,9 +33,21 @@
 
             <table>
                 <tr>
-                    <th>First Name</th>
-                    <th>Last Name</th>
-                    <th>Email</th>
+                    <c:url var="sortByFirstName" value="/customer/list">
+                        <c:param name="sort"  value="<%= Integer.toString(SortUtils.FIRST_NAME) %>"/>
+                    </c:url>
+
+                    <c:url var="sortByLastName" value="/customer/list">
+                        <c:param name="sort"  value="<%= Integer.toString(SortUtils.LAST_NAME) %>"/>
+                    </c:url>
+
+                    <c:url var="sortByEmail" value="/customer/list">
+                        <c:param name="sort"  value="<%= Integer.toString(SortUtils.EMAIL) %>"/>
+                    </c:url>
+
+                    <th><a href="${sortByFirstName}">First Name</a></th>
+                    <th><a href="${sortByLastName}">Last Name</a></th>
+                    <th><a href="${sortByEmail}">Email</a></th>
                     <th>Action</th>
                 </tr>
 

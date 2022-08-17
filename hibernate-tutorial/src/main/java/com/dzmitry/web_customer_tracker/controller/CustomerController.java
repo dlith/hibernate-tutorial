@@ -2,6 +2,7 @@ package com.dzmitry.web_customer_tracker.controller;
 
 import com.dzmitry.web_customer_tracker.entity.Customer;
 import com.dzmitry.web_customer_tracker.service.CustomerService;
+import com.dzmitry.web_customer_tracker.util.SortUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,11 +18,16 @@ public class CustomerController {
     private CustomerService customerService;
 
     @GetMapping("/list")
-    public String listCustomers(Model model){
+    public String listCustomers(Model model, @RequestParam(required = false) String sort){
 
-        List<Customer> customers = customerService.getCustomers();
+        List<Customer> customers;
+        if(sort != null){
+            int sortColumn = Integer.parseInt(sort);
+            customers = customerService.getCustomers(sortColumn);
+        }else {
+            customers = customerService.getCustomers(SortUtils.LAST_NAME);
+        }
         model.addAttribute("customers", customers);
-
         return "list-customers";
     }
 
