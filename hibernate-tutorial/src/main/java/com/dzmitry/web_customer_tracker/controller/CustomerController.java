@@ -52,4 +52,12 @@ public class CustomerController {
         customerService.deleteCustomer(id);
         return "redirect:/customer/list";
     }
+
+    @GetMapping("/search")
+    public String searchCustomers(@RequestParam("searchName") String name, Model model){
+
+        List<Customer> customers = customerService.searchCustomers(name);
+        model.addAttribute("customers", customers);
+        return "list-customers";
+    }
 }
